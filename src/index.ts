@@ -1,8 +1,15 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import { createConnection } from "typeorm";
+import { User } from "./entity/User";
+import * as express from "express";
+const app = express();
+const port = process.env.PORT;
 
-createConnection().then(async connection => {
+createConnection()
+  .then(async (connection) => {
+    app.listen(port, () => {
+      console.log(`connecting to ${port} port`);
+    });
 
     console.log("Inserting a new user into the database...");
     const user = new User();
@@ -17,5 +24,5 @@ createConnection().then(async connection => {
     console.log("Loaded users: ", users);
 
     console.log("Here you can setup and run express/koa/any other framework.");
-
-}).catch(error => console.log(error));
+  })
+  .catch((error) => console.log(error));

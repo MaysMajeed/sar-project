@@ -8,12 +8,14 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "@types/node": "8.10.61",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "pg": "^7.18.2",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "0.2.25",
-    "typescript": "3.9.6",
     "ts-node": "3.3.0",
-    "@types/node": "8.10.61"
+    "typeorm": "0.2.25",
+    "typescript": "3.9.6"
   },
   "scripts": {
     "start": "ts-node src/index.ts"
