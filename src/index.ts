@@ -12,9 +12,6 @@ createConnection()
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use("/v1", router);
-    app.use("/", (req, res) => {
-      return res.status(400).send("hi, it works!");
-    });
     app.listen(port, () => {
       console.log(`connecting to ${port} port`);
     });
