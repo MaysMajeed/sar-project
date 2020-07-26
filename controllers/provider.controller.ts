@@ -74,17 +74,22 @@ export default class providerController {
   }
 
   static async updateProvider(req: Request, res: Response) {
-    const findUpdatedProvider = await Provider.findOne(req.params.id);
     const checkUpdate = validator(
       req.body,
       providerValidation.UpdateProvider()
     );
-    if (!findUpdatedProvider) {
-      res.send("There is no provider under this ID");
-    } else if (checkUpdate) {
+    if (checkUpdate) {
       return res.send(checkUpdate);
-    } else {
-      Provider.update(Provider, req.body);
+    }
+    let findUpdatedProvider = await Provider.findOne(req.params.id);
+    if (!findUpdatedProvider)
+      return res.status(400).send("There is no provider under this ID");
+    else {
+      (findUpdatedProvider.name = req.body.name),
+        (findUpdatedProvider.phone = req.body.phone),
+        (findUpdatedProvider.address = req.body.address),
+        (findUpdatedProvider.lang = req.body.lang),
+        (findUpdatedProvider.lat = req.body.lat);
       await findUpdatedProvider.save();
       return res.send("The provider was updated successfully");
     }
