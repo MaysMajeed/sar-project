@@ -19,29 +19,31 @@ export default class providerController {
   }
 
   static async newProvider(req: Request, res: Response) {
-    const existProvider = await Provider.findOne({ email: req.body.email });
     const checkProvider = validator(
       req.body,
       providerValidation.RegisterValidation()
     );
+    if (checkProvider) return res.status(400).json(checkProvider);
+    const existProvider = await Provider.findOne({ email: req.body.email });
+
     if (existProvider) {
       return res.send("Provider already exist");
-    } else if (checkProvider) {
-      return res.status(400).json(checkProvider);
     } else {
       let password = req.body.password;
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      const newProvider = new Provider();
-      newProvider.name = req.body.name;
-      newProvider.phone = req.body.phone;
-      newProvider.address = req.body.address;
-      newProvider.lang = req.body.lang;
-      newProvider.lat = req.body.lat;
-      newProvider.email = req.body.email;
-      newProvider.password = hashedPassword;
-      newProvider.save();
+      const newProvider = Provider.create({
+        name: req.body.name,
+        phone: req.body.phone,
+        address: req.body.address,
+        lang: req.body.lang,
+        lat: req.body.lat,
+        email: req.body.email,
+        password: hashedPassword,
+      });
+
+      await newProvider.save();
       res.send(newProvider);
     }
   }
