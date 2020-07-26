@@ -4,7 +4,7 @@
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
-    "@types/node": "^14.0.24",
+    "@types/node": "^14.0.26",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
