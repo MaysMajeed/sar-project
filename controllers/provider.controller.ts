@@ -9,8 +9,8 @@ import * as jwt from "jsonwebtoken";
 
 export default class providerController {
   static async getProviders(req: Request, res: Response) {
-    const allProviders = Provider.find({});
-    return res.send(allProviders);
+    const allProviders = Provider.find();
+    return res.json(allProviders);
   }
 
   static async getSingleProvider(req: Request, res: Response) {
