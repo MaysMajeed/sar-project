@@ -7,9 +7,9 @@ const router = express.Router();
 router.get("/providers", providerController.getProviders);
 router.get("/provider/:id", providerController.getSingleProvider);
 router.post("/provider", providerController.newProvider);
-router.post("/providerLogin", providerController.loginProvider);
-router.put("/provider/:id", providerController.updateProvider);
-router.delete("/provider/:id", providerController.deleteProvider);
+// router.post("/providerLogin", providerController.loginProvider);
+// router.put("/provider/:id", providerController.updateProvider);
+// router.delete("/provider/:id", providerController.deleteProvider);
 
 /** Category **/
 router.get("/allCategories");
