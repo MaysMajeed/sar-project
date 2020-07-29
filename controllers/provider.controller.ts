@@ -9,7 +9,7 @@ import * as jwt from "jsonwebtoken";
 
 export default class providerController {
   static async getProviders(req: Request, res: Response) {
-    const allProviders = Provider.find();
+    const allProviders = Provider.find({});
     return res.send(allProviders);
   }
 
@@ -20,11 +20,11 @@ export default class providerController {
 
   static async newProvider(req: Request, res: Response) {
     try {
-      // const checkProvider = validator(
-      //   req.body,
-      //   providerValidation.RegisterValidation()
-      // );
-      // if (checkProvider) return res.status(400).json(checkProvider);
+      const checkProvider = validator(
+        req.body,
+        providerValidation.RegisterValidation()
+      );
+      if (checkProvider) return res.status(400).json(checkProvider);
       const existProvider = await Provider.findOne({ email: req.body.email });
 
       if (existProvider) {
