@@ -51,61 +51,61 @@ export default class providerController {
       console.log(err);
     }
   }
-  // static async loginProvider(req: Request, res: Response) {
-  //   const checkLogin = validator(
-  //     req.body,
-  //     providerValidation.LoginValidation()
-  //   );
-  //   const findLoginProvider = await Provider.findOne({ email: req.body.email });
-  //   const checkProviderPassword = bcrypt.compare(
-  //     req.body.password,
-  //     findLoginProvider.password
-  //   );
+  static async loginProvider(req: Request, res: Response) {
+    const checkLogin = validator(
+      req.body,
+      providerValidation.LoginValidation()
+    );
+    const findLoginProvider = await Provider.findOne({ email: req.body.email });
+    const checkProviderPassword = bcrypt.compare(
+      req.body.password,
+      findLoginProvider.password
+    );
 
-  //   if (checkLogin) {
-  //     return res.send(checkLogin);
-  //   } else if (!findLoginProvider) {
-  //     return res.send("Invalid username or password");
-  //   } else if (!checkProviderPassword) {
-  //     return res.send("Invalid username or password");
-  //   } else {
-  //     const providerToken = jwt.sign(
-  //       { UserID: findLoginProvider.id },
-  //       process.env.providerSecret
-  //     );
-  //     res.send("You are authorized to login successfully");
-  //   }
-  // }
+    if (checkLogin) {
+      return res.send(checkLogin);
+    } else if (!findLoginProvider) {
+      return res.send("Invalid username or password");
+    } else if (!checkProviderPassword) {
+      return res.send("Invalid username or password");
+    } else {
+      const providerToken = jwt.sign(
+        { UserID: findLoginProvider.id },
+        process.env.providerSecret
+      );
+      res.send("You are authorized to login successfully");
+    }
+  }
 
-  // static async updateProvider(req: Request, res: Response) {
-  //   const checkUpdate = validator(
-  //     req.body,
-  //     providerValidation.UpdateProvider()
-  //   );
-  //   if (checkUpdate) {
-  //     return res.send(checkUpdate);
-  //   }
-  //   let findUpdatedProvider = await Provider.findOne(req.params.id);
-  //   if (!findUpdatedProvider)
-  //     return res.status(400).send("There is no provider under this ID");
-  //   else {
-  //     (findUpdatedProvider.name = req.body.name),
-  //       (findUpdatedProvider.phone = req.body.phone),
-  //       (findUpdatedProvider.address = req.body.address),
-  //       (findUpdatedProvider.lang = req.body.lang),
-  //       (findUpdatedProvider.lat = req.body.lat);
-  //     await findUpdatedProvider.save();
-  //     return res.send("The provider was updated successfully");
-  //   }
-  // }
+  static async updateProvider(req: Request, res: Response) {
+    const checkUpdate = validator(
+      req.body,
+      providerValidation.UpdateProvider()
+    );
+    if (checkUpdate) {
+      return res.send(checkUpdate);
+    }
+    let findUpdatedProvider = await Provider.findOne(req.params.id);
+    if (!findUpdatedProvider)
+      return res.status(400).send("There is no provider under this ID");
+    else {
+      (findUpdatedProvider.name = req.body.name),
+        (findUpdatedProvider.phone = req.body.phone),
+        (findUpdatedProvider.address = req.body.address),
+        (findUpdatedProvider.lang = req.body.lang),
+        (findUpdatedProvider.lat = req.body.lat);
+      await findUpdatedProvider.save();
+      return res.send("The provider was updated successfully");
+    }
+  }
 
-  // static async deleteProvider(req: Request, res: Response) {
-  //   const findDeletedProvider = await Provider.findOne(req.params.id);
-  //   if (findDeletedProvider) {
-  //     await Provider.delete(req.params.id);
-  //     return res.send("The provider was deleted successsfully");
-  //   } else {
-  //     res.send("There is no provider under this ID");
-  //   }
-  // }
+  static async deleteProvider(req: Request, res: Response) {
+    const findDeletedProvider = await Provider.findOne(req.params.id);
+    if (findDeletedProvider) {
+      await Provider.delete(req.params.id);
+      return res.send("The provider was deleted successsfully");
+    } else {
+      res.send("There is no provider under this ID");
+    }
+  }
 }
