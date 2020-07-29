@@ -6,6 +6,7 @@ import * as validator from "validate.js";
 import providerValidation from "../sarUtilities/validation";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+require("dotenv").config();
 
 export default class providerController {
   static async getProviders(req: Request, res: Response) {
